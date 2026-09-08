@@ -1,0 +1,9 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.sipvoda.com
+
+# Sitemaps
+Sitemap: https://www.sipvoda.com/sitemap.xml

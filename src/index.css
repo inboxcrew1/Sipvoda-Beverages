@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    @apply bg-[#FFFFFF] text-[#0A1E3F] font-sans selection:bg-[#0284C7] selection:text-white;
+    overflow-x: hidden;
+    max-width: 100vw;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  #root {
+    overflow-x: hidden;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #FFFFFF;
+  }
+
+  /* Eliminate 300ms mobile tap delay and remove tap grey boxes */
+  button, a, input, select, textarea {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Prevent iOS Safari auto-zoom by enforcing 16px base font on inputs */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.015em;
+    word-break: break-word;
+  }
+}
+
+/* Light Luxury Panels & Water Glass Utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: 0 10px 30px -5px rgba(10, 30, 63, 0.04);
+}
+
+.glass-panel-luxury {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 20px 45px -10px rgba(10, 30, 63, 0.06), 0 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+}
+
+.text-gradient-azure {
+  background: linear-gradient(135deg, #0A1E3F 10%, #0369A1 65%, #0284C7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #0A1E3F 10%, #9E7E55 60%, #C5A880 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Water Bottle Natural Reflection */
+.bottle-reflection-container {
+  position: relative;
+  display: inline-block;
+}
+
+.bottle-water-reflection {
+  transform: scaleY(-0.35) translateY(-30%);
+  filter: blur(2.5px);
+  opacity: 0.28;
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 65%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* Soft Blurry Hero Frame (No Sharp Edges) */
+.blurry-hero-frame-outer {
+  position: relative;
+  border-radius: 2.5rem;
+  padding: 10px;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.9), rgba(240, 249, 255, 0.6) 70%, rgba(224, 242, 254, 0.25) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 
+    0 0 60px 20px rgba(2, 132, 199, 0.16),
+    0 25px 60px -12px rgba(10, 30, 63, 0.15),
+    inset 0 0 35px 10px rgba(255, 255, 255, 0.95);
+}
+
+.blurry-feathered-image {
+  border-radius: 2rem;
+  /* Feathered radial edge mask so the image softly dissolves at edges without sharp line */
+  mask-image: radial-gradient(ellipse 96% 94% at 50% 50%, black 72%, rgba(0, 0, 0, 0.7) 86%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 96% 94% at 50% 50%, black 72%, rgba(0, 0, 0, 0.7) 86%, transparent 100%);
+}
+
+.blurry-edge-vignette {
+  position: absolute;
+  inset: 0;
+  border-radius: 2rem;
+  pointer-events: none;
+  box-shadow: inset 0 0 30px 12px rgba(255, 255, 255, 0.7), inset 0 0 60px 20px rgba(240, 249, 255, 0.4);
+}
+
+/* Safe area inset utilities for iPhone home bar */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 1rem);
+}
+
+/* Custom Minimal Scrollbar for Light Theme */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #FFFFFF;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0284C7;
+}

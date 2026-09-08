@@ -1,0 +1,21 @@
+{
+  "name": "SIPVODA Beverages - Pure Water. Elevated.",
+  "short_name": "SIPVODA",
+  "description": "Premium packaged drinking water and custom branded bottles for luxury hospitality, corporate events, and fine dining.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
+  "icons": [
+    {
+      "src": "/assets/images/a1fafd0a4ad93bfb960a148fbc21db07.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/a1fafd0a4ad93bfb960a148fbc21db07.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
