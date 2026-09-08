@@ -1,0 +1,59 @@
+﻿# ================================================================
+# SIPVODA Beverages — Apache / Hostinger Configuration (.htaccess)
+# ================================================================
+
+# 1. Force HTTPS & Canonical www.sipvoda.com (301 Permanent Redirect)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Redirect HTTP to HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Redirect non-www to www (https://sipvoda.com -> https://www.sipvoda.com)
+  RewriteCond %{HTTP_HOST} ^sipvoda\.com$ [NC]
+  RewriteRule ^(.*)$ https://www.sipvoda.com/ [L,R=301]
+
+  # SPA Routing: Send all non-file/non-directory requests to index.html
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# 2. Browser Caching (Lighthouse & Core Web Vitals)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+
+  # HTML & Verification files — no cache (always fresh)
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/manifest+json "access plus 1 day"
+
+  # Static Assets (JS / CSS / Fonts / Images) — Cache 1 Year
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+
+  # Videos — Cache 1 Week
+  ExpiresByType video/mp4 "access plus 1 week"
+</IfModule>
+
+# 3. Gzip / Deflate Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+# 4. Security Headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
