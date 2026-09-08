@@ -192,7 +192,7 @@ export default function Home() {
         {/* Royalty-Free Looping Water Video Layer */}
         <WaterVideoBackground
           src="/assets/videos/water-crystal-clear.mp4"
-          poster="/assets/images/unsplash_13.png"
+          poster="/assets/images/unsplash_13.webp"
           playbackRate={0.7}
         />
 
@@ -275,7 +275,7 @@ export default function Home() {
                     
                     {/* The Full Bottle Collection Photo with feathered soft radial mask */}
                     <img
-                      src="/assets/images/hero-bottles-showcase.jpg"
+                      src="/assets/images/hero-bottles-showcase.webp"
                       alt="SIPVODA Custom Branded Water Bottles — Your Brand Our Water. Full bottle fleet showcase."
                       width="480"
                       height="560"

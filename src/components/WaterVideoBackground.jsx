@@ -10,7 +10,7 @@ import React, { useState, useRef, useEffect } from 'react';
  */
 export default function WaterVideoBackground({
   src = '/assets/videos/water-crystal-clear.mp4',
-  poster = '/assets/images/unsplash_13.png',
+  poster = '/assets/images/unsplash_13.webp',
   className = '',
   overlayClassName = '',
   playbackRate = 0.7,
