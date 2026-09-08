@@ -276,7 +276,12 @@ export default function Home() {
                     {/* The Full Bottle Collection Photo with feathered soft radial mask */}
                     <img
                       src="/assets/images/hero-bottles-showcase.jpg"
-                      alt="SIPVODA Custom Branded Fleet - Your Brand Our Water"
+                      alt="SIPVODA Custom Branded Water Bottles — Your Brand Our Water. Full bottle fleet showcase."
+                      width="480"
+                      height="560"
+                      fetchpriority="high"
+                      loading="eager"
+                      decoding="async"
                       className="w-full h-auto object-cover blurry-feathered-image transform hover:scale-[1.02] transition-transform duration-700 ease-out"
                     />
 
@@ -380,7 +385,11 @@ export default function Home() {
                 <div className="relative w-full h-64 sm:h-72 flex flex-col items-center justify-center my-4">
                   <img
                     src={bottle.image}
-                    alt={bottle.name}
+                    alt={`SIPVODA ${bottle.name} — ${bottle.volume} custom branded packaged drinking water bottle`}
+                    width="240"
+                    height="320"
+                    loading="lazy"
+                    decoding="async"
                     className="h-52 sm:h-60 object-contain drop-shadow-[0_15px_25px_rgba(10,30,63,0.12)] group-hover:scale-105 transition-transform duration-500"
                   />
                   {/* Water Reflection */}

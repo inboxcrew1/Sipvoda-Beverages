@@ -113,6 +113,49 @@
   padding-bottom: env(safe-area-inset-bottom, 1rem);
 }
 
+/* ================================================================
+   PERFORMANCE: content-visibility for below-fold sections
+   Browser skips layout/paint of off-screen content until needed.
+   Massive rendering speedup on mobile devices.
+   ================================================================ */
+.section-below-fold {
+  content-visibility: auto;
+  /* Reserve space to prevent CLS when content becomes visible */
+  contain-intrinsic-size: 0 500px;
+}
+
+/* ================================================================
+   PERFORMANCE: will-change only on animated elements (prevents
+   premature GPU layer creation which wastes VRAM)
+   ================================================================ */
+.animate-float-slow {
+  will-change: transform;
+}
+
+/* ================================================================
+   CLS PREVENTION: Images without explicit width/height
+   ================================================================ */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent layout shift on logo images */
+.logo-img {
+  aspect-ratio: auto;
+}
+
+/* ================================================================
+   FONT DISPLAY: Override Google Fonts to use 'swap' fallback
+   ================================================================ */
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Plus Jakarta Sans');
+}
+
 /* Custom Minimal Scrollbar for Light Theme */
 ::-webkit-scrollbar {
   width: 6px;
@@ -126,4 +169,23 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #0284C7;
+}
+
+/* ================================================================
+   PERFORMANCE: Smooth scrolling with reduced-motion respect
+   ================================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ================================================================
+   MOBILE PERFORMANCE: Disable expensive effects on low-end devices
+   ================================================================ */
+@media (max-width: 640px) {
+  .blurry-hero-frame-outer {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
 }

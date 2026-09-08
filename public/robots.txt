@@ -1,8 +1,28 @@
+# SIPVODA Beverages — robots.txt
 # https://www.robotstxt.org/robotstxt.html
+
 User-agent: *
 Allow: /
+Allow: /custom-water-bottles
+Allow: /custom-water-bottles-bulandshahr
+Allow: /custom-water-bottles-noida
+Allow: /custom-water-bottles-delhi
+Allow: /custom-water-bottles-gurugram
+Allow: /private-label-water
+Allow: /b2b-water-supply
+Allow: /industries
+Allow: /products
+Allow: /b2b
+Allow: /water
+Allow: /about
+Allow: /sustainability
+Allow: /contact
 
-# Host
+# Disallow query-string duplicates that could cause crawl waste
+Disallow: /*?*
+Disallow: /404
+
+# Host preference
 Host: https://www.sipvoda.com
 
 # Sitemaps

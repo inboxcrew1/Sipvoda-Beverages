@@ -109,12 +109,14 @@ export default function WaterCausticsCanvas({ className = '', theme = 'light' })
     observer.observe(canvas);
 
     const render = () => {
-      if (!isVisible || !isTabActive) {
+      // ── CRITICAL PERFORMANCE GUARD ──────────────────────────────
+      // Only schedule next frame — don't draw — when hidden or offscreen
+      if (!isVisible || !isTabActive || prefersReducedMotion) {
         animationFrameId = requestAnimationFrame(render);
         return;
       }
 
-      time += prefersReducedMotion ? 0 : 0.012;
+      time += 0.012;
 
       ctx.clearRect(0, 0, width, height);
 
@@ -241,9 +243,8 @@ export default function WaterCausticsCanvas({ className = '', theme = 'light' })
         ctx.restore();
       }
 
-      if (!prefersReducedMotion) {
-        animationFrameId = requestAnimationFrame(render);
-      }
+      // Always schedule next frame (guard at top handles the no-draw case)
+      animationFrameId = requestAnimationFrame(render);
     };
 
     render();

@@ -9,11 +9,21 @@ export default function Footer() {
     { name: 'Home', path: '/' },
     { name: 'About SIPVODA', path: '/about' },
     { name: 'Bottle Collection', path: '/products' },
-    { name: 'Custom Water Bottles', path: '/custom-bottles' },
+    { name: 'Custom Water Bottles', path: '/custom-water-bottles' },
+    { name: 'Private Label Water', path: '/private-label-water' },
     { name: 'B2B Solutions', path: '/b2b' },
+    { name: 'B2B Water Supply', path: '/b2b-water-supply' },
+    { name: 'Industries', path: '/industries' },
     { name: 'The Water & Purity', path: '/water' },
     { name: 'Sustainability', path: '/sustainability' },
     { name: 'Contact Concierge', path: '/contact' },
+  ];
+
+  const locationNav = [
+    { name: 'Custom Bottles — Bulandshahr', path: '/custom-water-bottles-bulandshahr' },
+    { name: 'Custom Bottles — Noida', path: '/custom-water-bottles-noida' },
+    { name: 'Custom Bottles — Delhi', path: '/custom-water-bottles-delhi' },
+    { name: 'Custom Bottles — Gurugram', path: '/custom-water-bottles-gurugram' },
   ];
 
   const socialLinks = [
@@ -100,6 +110,22 @@ export default function Footer() {
                   className="py-1 text-slate-600 hover:text-azure-600 transition-colors inline-flex items-center gap-1"
                 >
                   <span>{link.name}</span>
+                </Link>
+              ))}
+            </div>
+
+            {/* Location SEO Links */}
+            <h3 className="text-xs uppercase tracking-[0.2em] font-bold text-navy-900 mt-6 mb-3">
+              Locations We Serve
+            </h3>
+            <div className="space-y-1.5 text-xs">
+              {locationNav.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className="block text-slate-600 hover:text-azure-600 transition-colors"
+                >
+                  {link.name}
                 </Link>
               ))}
             </div>
