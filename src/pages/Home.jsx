@@ -9,6 +9,7 @@ import {
 import WaterVideoBackground from '../components/WaterVideoBackground';
 import WaterCausticsCanvas from '../components/WaterCausticsCanvas';
 import WaterDropRipple from '../components/WaterDropRipple';
+import AnnouncementPopup from '../components/AnnouncementPopup';
 
 export default function Home() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -183,6 +184,8 @@ export default function Home() {
 
   return (
     <div className="w-full bg-white text-navy-900 selection:bg-azure-600 selection:text-white">
+      {/* Executive Announcement Popup */}
+      <AnnouncementPopup />
       
       {/* =========================================================================
           1. HERO SECTION: CINEMATIC WATER + WHITE SPACE + SIPVODA BOTTLE
