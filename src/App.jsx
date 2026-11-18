@@ -23,6 +23,7 @@ import B2BWaterSupply from './pages/B2BWaterSupply';
 import Industries from './pages/Industries';
 import LocationBulandshahr from './pages/LocationBulandshahr';
 import { LocationNoida, LocationDelhi, LocationGurugram } from './pages/LocationPages';
+import AnnouncementPopup from './components/AnnouncementPopup';
 
 import { Toaster } from 'sonner';
 
@@ -30,6 +31,7 @@ export default function App() {
   return (
     <div className="flex flex-col min-h-screen bg-white text-navy-900 selection:bg-azure-600 selection:text-white">
       <ScrollToTop />
+      <AnnouncementPopup />
       <Navbar />
       <main className="flex-grow">
         <Routes>

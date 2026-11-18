@@ -1,160 +1,106 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { X, ArrowRight, Droplets } from 'lucide-react';
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { ArrowRight, Droplets, Factory, AlertTriangle } from 'lucide-react';
 
 /**
- * AnnouncementPopup - Executive Business Notice for SIPVODA
+ * AnnouncementPopup - Mandatory Executive Notice for SIPVODA
  * 
- * Announcement:
- * - Water bottle manufacturing and supply is currently unavailable
- * - Directs visitors to water plant & bottling machinery solutions
- * 
- * Easily update the destination URL below when the dedicated machinery page is launched.
+ * Rules:
+ * 1. Permanently active across the website (cannot be dismissed or hidden).
+ * 2. Only action is the prominent CTA button routing to /water-plant-machinery.
+ * 3. Never shows when the visitor is on the machinery page (/water-plant-machinery or /machinery).
  */
 export const MACHINERY_PAGE_URL = '/water-plant-machinery';
-const SESSION_STORAGE_KEY = 'sipvoda_machinery_notice_seen';
 
 export default function AnnouncementPopup() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isRendered, setIsRendered] = useState(false);
+  const location = useLocation();
 
-  useEffect(() => {
-    // Only display if visitor has not dismissed it in this browser session
-    const hasBeenDismissed = sessionStorage.getItem(SESSION_STORAGE_KEY);
-    if (hasBeenDismissed) return;
+  // DO NOT show popup on the machinery page or its aliases
+  const isMachineryPage = 
+    location.pathname === '/water-plant-machinery' ||
+    location.pathname === '/machinery' ||
+    location.pathname === '/water-plant';
 
-    // Elegant entrance delay so hero section paints smoothly first
-    const timer = setTimeout(() => {
-      setIsRendered(true);
-      // Small tick to trigger CSS transition
-      requestAnimationFrame(() => {
-        setIsOpen(true);
-      });
-    }, 900);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Keyboard accessibility: ESC key to close
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        handleDismiss();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen]);
-
-  const handleDismiss = () => {
-    setIsOpen(false);
-    sessionStorage.setItem(SESSION_STORAGE_KEY, 'true');
-    // Allow smooth fade-out animation before unmounting
-    setTimeout(() => {
-      setIsRendered(false);
-    }, 300);
-  };
-
-  if (!isRendered) return null;
+  if (isMachineryPage) {
+    return null;
+  }
 
   return (
     <div
       role="dialog"
       aria-modal="true"
-      aria-labelledby="announcement-title"
-      className={`fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 transition-opacity duration-300 ${
-        isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-      }`}
+      aria-labelledby="mandatory-announcement-title"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6"
     >
-      {/* Dark Transparent Backdrop with soft blur */}
-      <div
-        onClick={handleDismiss}
-        className="absolute inset-0 bg-navy-950/65 backdrop-blur-sm transition-opacity duration-300"
+      {/* Dark Non-dismissible Transparent Backdrop with strong blur */}
+      <div 
+        className="absolute inset-0 bg-navy-950/80 backdrop-blur-md select-none"
+        aria-hidden="true"
       />
 
-      {/* Popup Modal Card */}
-      <div
-        className={`relative w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 shadow-[0_25px_60px_-15px_rgba(10,30,63,0.35)] border border-slate-100/80 overflow-hidden transform transition-all duration-300 ease-out ${
-          isOpen ? 'scale-100 translate-y-0 opacity-100' : 'scale-95 translate-y-2 opacity-0'
-        }`}
-      >
-        {/* Subtle Decorative Aqua Ambient Radial Glow in Top Corner */}
+      {/* Mandatory Modal Card - Cannot be closed or clicked away */}
+      <div className="relative w-full max-w-lg bg-white rounded-3xl p-7 sm:p-10 shadow-[0_25px_70px_-10px_rgba(10,30,63,0.5)] border border-slate-200/90 overflow-hidden transform transition-all duration-300 animate-in fade-in zoom-in-95">
+        
+        {/* Subtle Decorative Aqua Ambient Glow in Top Corner */}
         <div
           aria-hidden="true"
-          className="absolute -top-16 -right-16 w-44 h-44 rounded-full bg-gradient-to-br from-azure-100/60 via-sky-100/30 to-transparent blur-2xl pointer-events-none"
+          className="absolute -top-20 -right-20 w-52 h-52 rounded-full bg-gradient-to-br from-azure-100/70 via-sky-100/40 to-transparent blur-3xl pointer-events-none"
         />
-
-        {/* Close Button */}
-        <button
-          type="button"
-          onClick={handleDismiss}
-          aria-label="Close announcement"
-          className="absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center text-slate-400 hover:text-navy-900 hover:bg-slate-100/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-azure-500/40 z-10"
-        >
-          <X className="w-5 h-5" />
-        </button>
 
         {/* Content Container */}
         <div className="relative flex flex-col items-center text-center">
           
           {/* Subtle Water Drop & Concentric Ripple Visual */}
-          <div className="relative mb-4 flex items-center justify-center">
+          <div className="relative mb-5 flex items-center justify-center">
             {/* Concentric Ambient Ripples */}
             <span
               aria-hidden="true"
-              className="absolute w-14 h-14 rounded-full border border-azure-300/40 animate-ping opacity-40 pointer-events-none"
+              className="absolute w-16 h-16 rounded-full border border-azure-400/40 animate-ping opacity-40 pointer-events-none"
             />
             <span
               aria-hidden="true"
-              className="absolute w-20 h-20 rounded-full border border-sky-200/30 pointer-events-none"
+              className="absolute w-24 h-24 rounded-full border border-sky-300/30 pointer-events-none"
             />
 
-            {/* Central Water Droplet Badge */}
-            <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-azure-50 via-sky-100/70 to-azure-100/50 border border-azure-200/80 flex items-center justify-center shadow-sm">
-              <Droplets className="w-6 h-6 text-azure-600" />
+            {/* Central Water Droplet & Plant Badge */}
+            <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-azure-50 via-sky-100/80 to-azure-100/60 border border-azure-200 flex items-center justify-center shadow-md">
+              <Droplets className="w-7 h-7 text-azure-600" />
             </div>
           </div>
 
-          {/* Micro Pill Badge */}
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-semibold tracking-widest uppercase bg-azure-50/80 text-azure-700 border border-azure-200/60 mb-3.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-azure-500 animate-pulse" />
+          {/* Notice Badge */}
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-amber-50 text-amber-800 border border-amber-200/80 mb-4 shadow-2xs">
+            <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
             <span>Important Notice</span>
           </div>
 
-          {/* Headline */}
+          {/* Mandatory Headline */}
           <h2
-            id="announcement-title"
-            className="text-base sm:text-lg font-bold text-navy-900 tracking-tight leading-snug uppercase mb-2.5 font-serif"
+            id="mandatory-announcement-title"
+            className="text-lg sm:text-2xl font-extrabold text-navy-900 tracking-tight leading-snug uppercase mb-3 font-serif"
           >
             WATER BOTTLE MANUFACTURING AND SUPPLY IS CURRENTLY UNAVAILABLE
           </h2>
 
-          {/* Description */}
-          <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed mb-6 max-w-xs sm:max-w-sm">
-            However you can explore water plant and bottling machinery solutions
+          {/* Clarification Message */}
+          <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed mb-6 max-w-md">
+            However you can explore complete water plant and bottling machinery solutions, production capacities, technical specifications &amp; direct factory pricing.
           </p>
 
-          {/* Action Area */}
-          <div className="w-full space-y-2.5">
+          {/* Single Mandatory Action Button - Only Option to Proceed */}
+          <div className="w-full">
             <Link
               to={MACHINERY_PAGE_URL}
-              onClick={handleDismiss}
-              className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-navy-900 via-navy-800 to-azure-700 hover:from-azure-700 hover:to-azure-600 text-white font-sans font-semibold text-xs tracking-widest uppercase shadow-md shadow-navy-900/15 hover:shadow-azure-600/25 transition-all duration-300 flex items-center justify-center gap-2 group"
+              className="w-full py-4 px-8 rounded-2xl bg-gradient-to-r from-navy-900 via-navy-800 to-azure-700 hover:from-azure-700 hover:to-azure-600 text-white font-sans font-bold text-sm tracking-wider uppercase shadow-lg shadow-navy-900/20 hover:shadow-azure-600/30 transition-all duration-300 flex items-center justify-center gap-3 group ring-2 ring-azure-400/30"
             >
+              <Factory className="w-5 h-5 text-azure-300 group-hover:scale-110 transition-transform" />
               <span>EXPLORE MACHINERY</span>
-              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+              <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1.5" />
             </Link>
 
-            <button
-              type="button"
-              onClick={handleDismiss}
-              className="w-full py-2 text-[11px] text-slate-400 hover:text-slate-600 transition-colors duration-200 font-medium"
-            >
-              Dismiss and continue browsing
-            </button>
+            <p className="text-[11px] text-slate-400 font-normal mt-3">
+              Click above to view industrial RO plants, filling lines, labelling, and packaging machinery.
+            </p>
           </div>
 
         </div>
