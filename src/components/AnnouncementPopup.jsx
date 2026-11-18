@@ -5,10 +5,12 @@ import { ArrowRight, Droplets, Factory, AlertTriangle } from 'lucide-react';
 /**
  * AnnouncementPopup - Mandatory Executive Notice for SIPVODA
  * 
- * Rules:
- * 1. Permanently active across the website (cannot be dismissed or hidden).
- * 2. Only action is the prominent CTA button routing to /water-plant-machinery.
- * 3. Never shows when the visitor is on the machinery page (/water-plant-machinery or /machinery).
+ * Requirements:
+ * 1. Background website is VISIBLE and fully SCROLLABLE in all uncovered remaining areas.
+ *    (Implemented via pointer-events-none on the container & backdrop, pointer-events-auto on modal card).
+ * 2. Popup CANNOT be closed, dismissed, or hidden — permanently floats in view.
+ * 3. The ONLY action is the prominent CTA button routing to /water-plant-machinery.
+ * 4. NEVER shows when visitor is on the machinery page (/water-plant-machinery or /machinery).
  */
 export const MACHINERY_PAGE_URL = '/water-plant-machinery';
 
@@ -30,60 +32,53 @@ export default function AnnouncementPopup() {
       role="dialog"
       aria-modal="true"
       aria-labelledby="mandatory-announcement-title"
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6"
+      className="fixed inset-0 z-[9999] pointer-events-none flex items-center justify-center p-4 sm:p-6"
     >
-      {/* Dark Non-dismissible Transparent Backdrop with strong blur */}
+      {/* Light, transparent non-blocking backdrop: Background remains fully visible & scrollable */}
       <div 
-        className="absolute inset-0 bg-navy-950/80 backdrop-blur-md select-none"
+        className="absolute inset-0 bg-navy-950/20 pointer-events-none select-none transition-opacity duration-300"
         aria-hidden="true"
       />
 
-      {/* Mandatory Modal Card - Cannot be closed or clicked away */}
-      <div className="relative w-full max-w-lg bg-white rounded-3xl p-7 sm:p-10 shadow-[0_25px_70px_-10px_rgba(10,30,63,0.5)] border border-slate-200/90 overflow-hidden transform transition-all duration-300 animate-in fade-in zoom-in-95">
+      {/* Mandatory Modal Card: Only this card captures pointer events, cannot be dismissed */}
+      <div className="pointer-events-auto relative w-full max-w-lg bg-white/98 backdrop-blur-xl rounded-3xl p-6 sm:p-9 shadow-[0_25px_80px_rgba(10,30,63,0.35)] border-2 border-azure-500/90 overflow-hidden transform transition-all duration-300 animate-in fade-in zoom-in-95">
         
-        {/* Subtle Decorative Aqua Ambient Glow in Top Corner */}
+        {/* Decorative Top Ambient Light */}
         <div
           aria-hidden="true"
-          className="absolute -top-20 -right-20 w-52 h-52 rounded-full bg-gradient-to-br from-azure-100/70 via-sky-100/40 to-transparent blur-3xl pointer-events-none"
+          className="absolute -top-20 -right-20 w-48 h-48 rounded-full bg-gradient-to-br from-azure-100/60 via-sky-100/30 to-transparent blur-2xl pointer-events-none"
         />
 
         {/* Content Container */}
         <div className="relative flex flex-col items-center text-center">
           
-          {/* Subtle Water Drop & Concentric Ripple Visual */}
-          <div className="relative mb-5 flex items-center justify-center">
-            {/* Concentric Ambient Ripples */}
+          {/* Subtle Water Droplet Icon with Ripple */}
+          <div className="relative mb-4 flex items-center justify-center">
             <span
               aria-hidden="true"
-              className="absolute w-16 h-16 rounded-full border border-azure-400/40 animate-ping opacity-40 pointer-events-none"
+              className="absolute w-14 h-14 rounded-full border border-azure-400/30 animate-ping opacity-30 pointer-events-none"
             />
-            <span
-              aria-hidden="true"
-              className="absolute w-24 h-24 rounded-full border border-sky-300/30 pointer-events-none"
-            />
-
-            {/* Central Water Droplet & Plant Badge */}
-            <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-azure-50 via-sky-100/80 to-azure-100/60 border border-azure-200 flex items-center justify-center shadow-md">
-              <Droplets className="w-7 h-7 text-azure-600" />
+            <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-azure-50 via-sky-100/80 to-azure-100/60 border border-azure-200 flex items-center justify-center shadow-xs">
+              <Droplets className="w-6 h-6 text-azure-600" />
             </div>
           </div>
 
-          {/* Notice Badge */}
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-amber-50 text-amber-800 border border-amber-200/80 mb-4 shadow-2xs">
+          {/* Micro Notice Badge */}
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-amber-50 text-amber-800 border border-amber-200/80 mb-3 shadow-2xs">
             <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
-            <span>Important Notice</span>
+            <span>Important Business Notice</span>
           </div>
 
-          {/* Mandatory Headline */}
+          {/* Headline */}
           <h2
             id="mandatory-announcement-title"
-            className="text-lg sm:text-2xl font-extrabold text-navy-900 tracking-tight leading-snug uppercase mb-3 font-serif"
+            className="text-base sm:text-xl font-extrabold text-navy-900 tracking-tight leading-snug uppercase mb-2.5 font-serif"
           >
             WATER BOTTLE MANUFACTURING AND SUPPLY IS CURRENTLY UNAVAILABLE
           </h2>
 
           {/* Clarification Message */}
-          <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed mb-6 max-w-md">
+          <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed mb-6 max-w-sm">
             However you can explore complete water plant and bottling machinery solutions, production capacities, technical specifications &amp; direct factory pricing.
           </p>
 
@@ -91,16 +86,16 @@ export default function AnnouncementPopup() {
           <div className="w-full">
             <Link
               to={MACHINERY_PAGE_URL}
-              className="w-full py-4 px-8 rounded-2xl bg-gradient-to-r from-navy-900 via-navy-800 to-azure-700 hover:from-azure-700 hover:to-azure-600 text-white font-sans font-bold text-sm tracking-wider uppercase shadow-lg shadow-navy-900/20 hover:shadow-azure-600/30 transition-all duration-300 flex items-center justify-center gap-3 group ring-2 ring-azure-400/30"
+              className="w-full py-3.5 sm:py-4 px-6 rounded-2xl bg-gradient-to-r from-navy-900 via-navy-800 to-azure-700 hover:from-azure-700 hover:to-azure-600 text-white font-sans font-bold text-xs sm:text-sm tracking-wider uppercase shadow-lg shadow-navy-900/20 hover:shadow-azure-600/30 transition-all duration-300 flex items-center justify-center gap-2.5 group ring-2 ring-azure-400/40"
             >
-              <Factory className="w-5 h-5 text-azure-300 group-hover:scale-110 transition-transform" />
+              <Factory className="w-4 h-4 text-azure-300 group-hover:scale-110 transition-transform" />
               <span>EXPLORE MACHINERY</span>
-              <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1.5" />
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" />
             </Link>
 
-            <p className="text-[11px] text-slate-400 font-normal mt-3">
-              Click above to view industrial RO plants, filling lines, labelling, and packaging machinery.
-            </p>
+            <div className="mt-3 flex items-center justify-center gap-1.5 text-[11px] text-slate-400 font-medium">
+              <span>Scroll down to preview page behind • Click button to view machinery</span>
+            </div>
           </div>
 
         </div>
