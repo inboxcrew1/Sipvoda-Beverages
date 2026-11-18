@@ -37,3 +37,4 @@ last_prompt.txt
 last_user_prompt.json
 .system_generated/
 scratch/
+*.zip

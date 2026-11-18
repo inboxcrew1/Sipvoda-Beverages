@@ -13,6 +13,7 @@ import CustomBottles from './pages/CustomBottles';
 import Sustainability from './pages/Sustainability';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import WaterPlantMachinery from './pages/WaterPlantMachinery';
 import NotFound from './pages/NotFound';
 
 // SEO Landing Pages
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/sustainability" element={<Sustainability />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/water-plant-machinery" element={<WaterPlantMachinery />} />
 
           {/* ── SEO Commercial Landing Pages ──────────────── */}
           <Route path="/custom-water-bottles" element={<CustomWaterBottles />} />
@@ -55,6 +57,8 @@ export default function App() {
           <Route path="/custom-water-bottles-gurugram" element={<LocationGurugram />} />
 
           {/* ── Convenience aliases / redirects ───────────── */}
+          <Route path="/machinery" element={<Navigate to="/water-plant-machinery" replace />} />
+          <Route path="/water-plant" element={<Navigate to="/water-plant-machinery" replace />} />
           <Route path="/custom-branded-water-bottles" element={<Navigate to="/custom-water-bottles" replace />} />
           <Route path="/own-brand-water" element={<Navigate to="/private-label-water" replace />} />
           <Route path="/hotels" element={<Navigate to="/industries" replace />} />

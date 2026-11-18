@@ -9,6 +9,7 @@ export default function Footer() {
     { name: 'Home', path: '/' },
     { name: 'About SIPVODA', path: '/about' },
     { name: 'Bottle Collection', path: '/products' },
+    { name: 'Plant Machinery & Bottling', path: '/water-plant-machinery' },
     { name: 'Custom Water Bottles', path: '/custom-water-bottles' },
     { name: 'Private Label Water', path: '/private-label-water' },
     { name: 'B2B Solutions', path: '/b2b' },

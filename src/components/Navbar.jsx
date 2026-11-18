@@ -30,6 +30,7 @@ export default function Navbar() {
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Products', path: '/products' },
+    { name: 'Plant Machinery', path: '/water-plant-machinery' },
     { name: 'Custom Bottles', path: '/custom-bottles' },
     { name: 'B2B Solutions', path: '/b2b' },
     { name: 'The Water', path: '/water' },
